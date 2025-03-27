@@ -72,4 +72,74 @@ describe("Produto Controller", () => {
         // Verifica se a mensagem de sucesso foi enviada.
         expect(res.send).toHaveBeenCalledWith("Usuário cadastrado com sucesso");
     });
+
+    test("listarTodos deve retornar erro 500 em caso de falha", async () => {
+        // Configura o mock para que listarTodos rejeite a Promise com um erro.
+        const mockError = new Error("Erro ao listar produtos");
+        produtoService.listarTodos.mockRejectedValue(mockError);
+
+        // Chama o método listarTodos do controller.
+        await produtoController.listarTodos(req, res);
+
+        // Verifica se o status 500 foi definido na resposta.
+        expect(res.status).toHaveBeenCalledWith(500);
+        // Verifica se a mensagem de erro foi enviada.
+        expect(res.send).toHaveBeenCalledWith(`Erro na listagem de produtos ${mockError}`);
+    });
+    test("listarUsuario deve retornar erro 500 em caso de falha", async () => {
+        // Configura o mock para que listarUsuario rejeite a Promise com um erro.
+        const mockError = new Error("Erro ao listar produtos do usuário");
+        produtoService.listarUsuario.mockRejectedValue(mockError);
+    
+        // Chama o método listarUsuario do controller.
+        await produtoController.listarUsuario(req, res);
+    
+        // Verifica se o status 500 foi definido na resposta.
+        expect(res.status).toHaveBeenCalledWith(500);
+        // Verifica se a mensagem de erro foi enviada.
+        expect(res.send).toHaveBeenCalledWith(`Erro na listagem de produtos ${mockError}`);
+    });
+    test("criarUsuario deve retornar erro 500 em caso de falha", async () => {
+        // Configura o mock para que criarUsuario rejeite a Promise com um erro.
+        const mockError = new Error("Erro ao criar usuário");
+        produtoService.criarUsuario.mockRejectedValue(mockError);
+
+        // Chama o método criarUsuario do controller.
+        await produtoController.criarUsuario(req, res);
+
+        // Verifica se o status 500 foi definido na resposta.
+        expect(res.status).toHaveBeenCalledWith(500);
+        // Verifica se a mensagem de erro foi enviada.
+        expect(res.send).toHaveBeenCalledWith(`Erro na criação de usuarios ${mockError}`);
+    });
+
+        // Testa o método atualizarUsuario para erro (status 500).
+        test("atualizarUsuario deve retornar erro 500 em caso de falha", async () => {
+            // Configura o mock para que atualizarUsuario rejeite a Promise com um erro.
+            const mockError = new Error("Erro ao atualizar usuário");
+            produtoService.atualizarUsuario.mockRejectedValue(mockError);
+
+            // Chama o método atualizarUsuario do controller.
+            await produtoController.atualizarUsuario(req, res);
+
+            // Verifica se o status 500 foi definido na resposta.
+            expect(res.status).toHaveBeenCalledWith(500);
+            // Verifica se a mensagem de erro foi enviada.
+            expect(res.send).toHaveBeenCalledWith(`Erro na edição do usuarios ${mockError}`);
+        });
+
+        // Testa o método deletarUsuario para erro (status 500).
+        test("deletarUsuario deve retornar erro 500 em caso de falha", async () => {
+            // Configura o mock para que deletarUsuario rejeite a Promise com um erro.
+            const mockError = new Error("Erro ao deletar usuário");
+            produtoService.deletarUsuario.mockRejectedValue(mockError);
+
+            // Chama o método deletarUsuario do controller.
+            await produtoController.deletarUsuario(req, res);
+
+            // Verifica se o status 500 foi definido na resposta.
+            expect(res.status).toHaveBeenCalledWith(500);
+            // Verifica se a mensagem de erro foi enviada.
+            expect(res.send).toHaveBeenCalledWith(`Erro na deletado do usuarios ${mockError}`);
+        });
 });
